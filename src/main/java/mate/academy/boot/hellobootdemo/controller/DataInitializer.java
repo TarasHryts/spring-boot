@@ -16,11 +16,6 @@ public class DataInitializer {
         saveBooks();
     }
 
-    @PostConstruct
-    public void initData() {
-        saveBooks();
-    }
-
     private void saveBooks() {
         Book kobzar = new Book("Kobzar", 250.0, 2018);
         bookService.save(kobzar);

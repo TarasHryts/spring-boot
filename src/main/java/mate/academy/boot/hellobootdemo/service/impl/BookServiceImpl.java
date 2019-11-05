@@ -2,6 +2,8 @@ package mate.academy.boot.hellobootdemo.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import mate.academy.boot.hellobootdemo.dto.BookDto;
+import mate.academy.boot.hellobootdemo.dto.BookDtoUtil;
 import mate.academy.boot.hellobootdemo.entity.Book;
 import mate.academy.boot.hellobootdemo.repository.BookRepository;
 import mate.academy.boot.hellobootdemo.service.BookService;
@@ -35,9 +37,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book update(Long bookId, Book book) {
-        Book bookToChange = bookRepository.findById(bookId).get();
-        bookToChange = book;
-        return bookRepository.save(bookToChange);
+    public Optional<Book> update(Long bookId, BookDto bookDto) {
+        if (bookRepository.existsById(bookId)) {
+            Book book = BookDtoUtil.createBookFromDto(bookDto);
+            book.setId(bookId);
+            bookRepository.save(book);
+            return Optional.of(book);
+        }
+        return Optional.empty();
     }
 }

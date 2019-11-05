@@ -22,4 +22,10 @@ public class Book {
     private String description;
     private Double price;
     private Integer year;
+
+    public Book(String title, Double price, Integer year) {
+        this.title = title;
+        this.price = price;
+        this.year = year;
+    }
 }
